@@ -1,6 +1,5 @@
 const puppeteer = require("puppeteer-extra")
-const pageURL = 'https://www.lowes.com/pd/DEWALT-5-Tool-20-Volt-Max-Power-Tool-Combo-Kit-with-Soft-Case-Charger-Included-and-2-Batteries-Included/3441520';
-const codes = ['471140160928832', '471140160927732'];
+const {codes, pageURL} = require('./config');
 const moment = require('moment');
 const fs = require('fs');
 
@@ -13,7 +12,7 @@ const fs = require('fs');
     let responseStatus;
     try {
       console.log(`${i} - Started Working on code # ${i + 1} (${codes[i]}) at: ${moment().format('DD-MM-YYYY HH:mm:ss')}`);
-      const browser = await puppeteer.launch({ headless: false, args: [ '--window-size=1366,768', '--no-sandbox' ] });
+      const browser = await puppeteer.launch({ headless: true, args: [ '--window-size=1366,768', '--no-sandbox' ] });
       const page = await browser.newPage();
       await page.setViewport({ width: 1366, height: 768 });
       const response = await page.goto(pageURL, { timeout: 0, waitUntil: 'load' });
